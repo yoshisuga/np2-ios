@@ -1,0 +1,25 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "7c2116fe-53d0-4aec-ab59-80607f05abc0++2263",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "7c2116fe-53d0-4aec-ab59-80607f05abc0++2263" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "7c2116fe-53d0-4aec-ab59-80607f05abc0++2263" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "01C75BA2-2E93-4CE8-A0C9-3262A50B522E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "7c2116fe-53d0-4aec-ab59-80607f05abc0++2263" : "np2\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "np2sdl2",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "sdl2\/iOS\/np2sdl2.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "http:\/\/amethyst.yui.ne.jp\/svn\/pc98",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "7c2116fe-53d0-4aec-ab59-80607f05abc0++2263"
+    }
+  ]
+}
