@@ -82,7 +82,7 @@ BRESULT scrnmng_create(int width, int height) {
 	SDL_PixelFormat	*fmt;
 	BOOL			r;
 
-	if (SDL_InitSubSystem(SDL_INIT_VIDEO | SDL_INIT_TIMER) < 0) {
+	if (SDL_InitSubSystem(SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0) {
 		fprintf(stderr, "Error: SDL_Init: %s\n", SDL_GetError());
 		return(FAILURE);
 	}

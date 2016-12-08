@@ -9,9 +9,11 @@
 #import <Foundation/Foundation.h>
 
 typedef NS_ENUM(NSInteger, KeyboardKey) {
+    KEY_FN = 0xff,    // special! to show alternate keys
+    KEY_BLANK = 0xfe, // special! blank placeholder key
     KEY_CAPS = 0x71,
     KEY_OPTION = 0x37,
-    KEY_APPLE = 0x73,
+    KEY_ALT = 0x73,
     KEY_TILDE = 0x12,
     KEY_SPACE = 0x34,
     KEY_RIGHT_CURSOR = 0x3C,
@@ -39,10 +41,10 @@ typedef NS_ENUM(NSInteger, KeyboardKey) {
     KEY_J = 0x23,
     KEY_K = 0x24,
     KEY_L = 0x25,
-    KEY_SEMICOLON = 0x27, // MAKE THIS A COLON FOR CONVENIENCE
+    KEY_SEMICOLON = 0x26, 
     KEY_SQUOTE = 0x27,
     KEY_RETURN = 0x1C,
-    KEY_TAB = 0x3F, // override to END key for now
+    KEY_TAB = 0x0f,
     KEY_Q = 0x10,
     KEY_W = 0x11,
     KEY_E = 0x12,
@@ -68,7 +70,43 @@ typedef NS_ENUM(NSInteger, KeyboardKey) {
     KEY_0 = 0x0A,
     KEY_MINUS = 0x40,
     KEY_EQUALS = 0x0C,
-    KEY_DELETE = 0x0E
+    KEY_DELETE = 0x0E,
+    KEY_NUMPAD_7 = 0x42,
+    KEY_NUMPAD_8 = 0x43,
+    KEY_NUMPAD_9 = 0x44,
+    KEY_NUMPAD_MULTIPLY = 0x45,
+    KEY_NUMPAD_4 = 0x46,
+    KEY_NUMPAD_5 = 0x47,
+    KEY_NUMPAD_6 = 0x48,
+    KEY_NUMPAD_PLUS = 0x49,
+    KEY_NUMPAD_1 = 0x4a,
+    KEY_NUMPAD_2 = 0x4b,
+    KEY_NUMPAD_3 = 0x4c,
+    KEY_NUMPAD_EQUALS = 0x4d,
+    KEY_NUMPAD_0 = 0x4e,
+    KEY_PAGEUP = 0x36,
+    KEY_PAGEDWN = 0x37,
+    KEY_INSERT = 0x38,
+    KEY_DEL = 0x39,
+    KEY_HOME = 0x3e,
+    KEY_END = 0x3f,
+    KEY_NUMPAD_MINUS = 0x40,
+    KEY_NUMPAD_DIVIDE = 0x41,
+    KEY_COLON = 0x27,
+    KEY_NUMPAD_PERIOD = 0x50,
+    KEY_PAUSE = 0x60,
+    KEY_PRNTSCRN = 0x61,
+    KEY_F1 = 0x62,
+    KEY_F2 = 0x63,
+    KEY_F3 = 0x64,
+    KEY_F4 = 0x65,
+    KEY_F5 = 0x66,
+    KEY_F6 = 0x67,
+    KEY_F8 = 0x68,
+    KEY_F9 = 0x6a,
+    KEY_F10 = 0x6b,
+    KEY_UNDERSCORE = 0x33,
+    KEY_CARET = 0x0c
 };
 
 typedef NS_ENUM(NSInteger, KeyMapMappableButton) {

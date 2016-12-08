@@ -31,10 +31,10 @@
 }
 
 -(NSMutableDictionary*) defaultMapping {
-    return [@{ [NSNumber numberWithInteger:MFI_BUTTON_X] : [NSNumber numberWithInteger:KEY_OPTION],
-               [NSNumber numberWithInteger:MFI_BUTTON_A] : [NSNumber numberWithInteger:KEY_APPLE],
-               [NSNumber numberWithInteger:ICADE_BUTTON_1] : [NSNumber numberWithInteger:KEY_OPTION],
-               [NSNumber numberWithInteger:ICADE_BUTTON_2] : [NSNumber numberWithInteger:KEY_APPLE]
+    return [@{ [NSNumber numberWithInteger:MFI_BUTTON_X] : [NSNumber numberWithInteger:KEY_CTRL],
+               [NSNumber numberWithInteger:MFI_BUTTON_A] : [NSNumber numberWithInteger:KEY_ALT],
+               [NSNumber numberWithInteger:ICADE_BUTTON_1] : [NSNumber numberWithInteger:KEY_CTRL],
+               [NSNumber numberWithInteger:ICADE_BUTTON_2] : [NSNumber numberWithInteger:KEY_ALT]
                } mutableCopy];
 }
 

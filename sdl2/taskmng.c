@@ -110,6 +110,10 @@ void taskmng_rol(void) {
 		case SDL_QUIT:
 			task_avail = FALSE;
 			break;
+        
+        case SDL_CONTROLLERBUTTONDOWN:
+            fprintf(stderr, "mfi controller button press!");
+            break;
 	}
 }
 

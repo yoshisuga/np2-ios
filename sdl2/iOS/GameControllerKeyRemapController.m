@@ -33,9 +33,8 @@ struct KeyCap {
 };
 
 struct KeyCap keyCapDefinitions[] = {
-    { 1.2,"caps",KEY_CAPS,0 },
-    { 1.5,"opt",KEY_APPLE,0 },
-    { 1.0,"",KEY_OPTION,0 },
+    { 2.7,"fn",KEY_FN,0 },
+    { 1.0,"alt",KEY_ALT,0 },
     { 1.0,"`",KEY_TILDE,0 },
     { 6.3," ",KEY_SPACE,0 },
     { 1.0,"←",KEY_LEFT_CURSOR,0 },
@@ -54,9 +53,11 @@ struct KeyCap keyCapDefinitions[] = {
     { 1.0,",",KEY_COMMA,"<" },
     { 1.0,".",KEY_PERIOD,">" },
     { 1.0,"/",KEY_FSLASH,"?" },
-    { 2.5,"shift",KEY_SHIFT,0 },
+    { 1.0,"_",KEY_UNDERSCORE,0 },
+    { 1.5,"shift",KEY_SHIFT,0 },
     { -1,0,0,0 },
-    { 2.0,"control",KEY_CTRL,0 },
+    { 1.0,"control",KEY_CTRL,0 },
+    { 1.0,"caps", KEY_CAPS, 0 },
     { 1.0,"A",KEY_A,0 },
     { 1.0,"S",KEY_S,0 },
     { 1.0,"D",KEY_D,0 },
@@ -67,7 +68,7 @@ struct KeyCap keyCapDefinitions[] = {
     { 1.0,"K",KEY_K,0 },
     { 1.0,"L",KEY_L,0 },
     { 1.0,";",KEY_SEMICOLON,":" },
-    { 1.0,"'",KEY_SQUOTE,"\""},
+    { 1.0,":",KEY_COLON,"\""},
     { 2.0,"return",KEY_RETURN,0 },
     { -1,0,0,0 },
     { 2.0,"tab",KEY_TAB,0 },
@@ -86,40 +87,88 @@ struct KeyCap keyCapDefinitions[] = {
     { -1,0,0,0 },
     { 1.0,"esc",KEY_ESC,0 },
     { 1.0,"1",KEY_1,"!" },
-    { 1.0,"2",KEY_2,"@" },
+    { 1.0,"2",KEY_2,"\"" },
     { 1.0,"3",KEY_3,"#" },
     { 1.0,"4",KEY_4,"$" },
     { 1.0,"5",KEY_5,"%" },
-    { 1.0,"6",KEY_6,"^" },
-    { 1.0,"7",KEY_7,"&" },
-    { 1.0,"8",KEY_8,"*" },
-    { 1.0,"9",KEY_9,"(" },
-    { 1.0,"0",KEY_0,")" },
+    { 1.0,"6",KEY_6,"&" },
+    { 1.0,"7",KEY_7,"'" },
+    { 1.0,"8",KEY_8,"(" },
+    { 1.0,"9",KEY_9,")" },
+    { 1.0,"0",KEY_0,0 },
     { 1.0,"-",KEY_MINUS,"_" },
-    { 1.0,"=",KEY_EQUALS,"+" },
+    { 1.0,"^",KEY_CARET,"+" },
     { 2.0,"delete",KEY_DELETE,0 },
+    { 0,0,0,0 }
+};
+
+struct KeyCap altKeyDefs[] = {
+    { 1.0, "fn", KEY_FN, 0 },
+    { 1.0, "0", KEY_NUMPAD_0, 0 },
+    { 1.0, ",", KEY_COMMA, 0 },
+    { 1.0, ".", KEY_NUMPAD_PERIOD, 0 },
+    { 1.0, "ret", KEY_RETURN, 0 },
+    { 10.0, "", KEY_BLANK, 0 },
+    { -1,0,0,0 },
+    { 1.0, "", KEY_BLANK, 0 },
+    { 1.0, "1", KEY_NUMPAD_1, 0 },
+    { 1.0, "2", KEY_NUMPAD_2, 0 },
+    { 1.0, "3", KEY_NUMPAD_3, 0 },
+    { 1.0, "=", KEY_NUMPAD_EQUALS, 0 },
+    { 10.0, "", KEY_BLANK, 0 },
+    { -1,0,0,0 },
+    { 1.0, "", KEY_BLANK, 0 },
+    { 1.0, "4", KEY_NUMPAD_4, 0 },
+    { 1.0, "5", KEY_NUMPAD_5, 0 },
+    { 1.0, "6", KEY_NUMPAD_6, 0 },
+    { 1.0, "+", KEY_NUMPAD_PLUS, 0 },
+    { 10.0, "", KEY_BLANK, 0 },
+    { -1,0,0,0 },
+    { 1.0, "", KEY_BLANK, 0 },
+    { 1.0, "7", KEY_NUMPAD_7, 0 },
+    { 1.0, "8", KEY_NUMPAD_8, 0 },
+    { 1.0, "9", KEY_NUMPAD_9, 0 },
+    { 1.0, "*", KEY_NUMPAD_MULTIPLY, 0 },
+    { 10.0, "", KEY_BLANK, 0 },
+    { -1,0,0,0 },
+    { 1.0, "", KEY_BLANK, 0 },
+    { 1.0, "home", KEY_HOME, 0 },
+    { 1.0, "help", KEY_PAUSE, 0 },
+    { 1.0, "-", KEY_NUMPAD_MINUS, 0 },
+    { 1.0, "/", KEY_NUMPAD_DIVIDE, 0 },
+    { 10.0, "", KEY_BLANK, 0 },
     { 0,0,0,0 }
 };
 
 @interface GameControllerKeyRemapController () <UIAlertViewDelegate,UITextFieldDelegate>
 @property (nonatomic, strong) NSMutableArray *keyCapViews;
+@property (nonatomic, strong) NSMutableArray *altKeyCapViews;
 @property (nonatomic, strong) UIAlertView *alertView;
 @property (nonatomic, strong) KeyMapper *keyMapperWorkingCopy;
 @property (nonatomic, strong) MfiGameControllerHandler *controllerHandler;
 @property (nonatomic, strong) UITextField *textFieldForICadeInput;
 @property (nonatomic, strong) NSNumber *currentlyMappingKey;
+@property (nonatomic) BOOL isRemapControlsMode;
 @end
 
 @implementation GameControllerKeyRemapController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.isRemapControlsMode = NO;
+    [self.remapControls enumerateObjectsUsingBlock:^(UIButton *button, NSUInteger idx, BOOL * _Nonnull stop) {
+        button.hidden = YES;
+    }];
+    self.keyMapper = [[KeyMapper alloc] init];
+    [self.keyMapper loadFromDefaults];
+    self.keyMapperWorkingCopy = [self.keyMapper copy];
     self.controllerHandler = [[MfiGameControllerHandler alloc] init];
     [self.controllerHandler discoverController:^(GCController *gameController) {
+        [self setupMfiController:gameController];
     } disconnectedCallback:^{
     }];
     self.keyCapViews = [NSMutableArray array];
-    self.keyMapperWorkingCopy = [self.keyMapper copy];
+    self.altKeyCapViews = [NSMutableArray array];
     self.saveButton.layer.borderWidth = 1.0f;
     self.saveButton.layer.borderColor = [self.view.tintColor CGColor];
     self.cancelButton.layer.borderWidth = 1.0f;
@@ -132,9 +181,151 @@ struct KeyCap keyCapDefinitions[] = {
     self.textFieldForICadeInput.delegate = self;
     self.textFieldForICadeInput.autocapitalizationType= UITextAutocorrectionTypeNo;
 
+    self.altKeyboardContainerView.hidden = YES;
     self.currentlyMappingKey = nil;
     [self constructKeyboard];
+    [self constructAltKeyboard];
 }
+
+-(void) setupMfiController:(GCController*)controller {
+    GCControllerButtonInput *buttonX = controller.extendedGamepad ? controller.extendedGamepad.buttonX : controller.gamepad.buttonX;
+    GCControllerButtonInput *buttonA = controller.extendedGamepad ? controller.extendedGamepad.buttonA : controller.gamepad.buttonA;
+    GCControllerButtonInput *buttonY = controller.extendedGamepad ? controller.extendedGamepad.buttonY : controller.gamepad.buttonY;
+    GCControllerButtonInput *buttonB = controller.extendedGamepad ? controller.extendedGamepad.buttonB : controller.gamepad.buttonB;
+    GCControllerButtonInput *buttonRS = controller.extendedGamepad ? controller.extendedGamepad.rightShoulder : controller.gamepad.rightShoulder;
+    GCControllerButtonInput *buttonLS = controller.extendedGamepad ? controller.extendedGamepad.leftShoulder : controller.gamepad.leftShoulder;
+    GCControllerButtonInput *buttonRT = controller.extendedGamepad ? controller.extendedGamepad.rightTrigger : nil;
+    GCControllerButtonInput *buttonLT = controller.extendedGamepad ? controller.extendedGamepad.leftTrigger : nil;
+    GCControllerDirectionPad *dpad = controller.extendedGamepad ? controller.extendedGamepad.dpad : controller.gamepad.dpad;
+    
+//    if ( controller.extendedGamepad ) {
+//        controller.extendedGamepad.leftThumbstick.valueChangedHandler = appleJoystickhHandler;
+//    }
+    
+    //
+    // mapped keys
+    KeyboardKey mappedKey = [self.keyMapper getMappedKeyForControl:MFI_BUTTON_X];
+    if ( mappedKey != NSNotFound ) {
+        buttonX.valueChangedHandler = ^(GCControllerButtonInput *button, float value, BOOL pressed) {
+            if ( pressed ) {
+                keystat_senddata((int)mappedKey);
+            } else {
+                keystat_senddata( (UINT8) ((int)mappedKey | 0x80));
+            }
+        };
+    }
+    
+    mappedKey = [self.keyMapper getMappedKeyForControl:MFI_BUTTON_Y];
+    if ( mappedKey != NSNotFound ) {
+        buttonY.valueChangedHandler = ^(GCControllerButtonInput *button, float value, BOOL pressed) {
+            if ( pressed ) {
+                keystat_senddata((int)mappedKey);
+            } else {
+                keystat_senddata( (UINT8) ((int)mappedKey | 0x80));
+            }
+        };
+    }
+    
+    mappedKey = [self.keyMapper getMappedKeyForControl:MFI_BUTTON_A];
+    if ( mappedKey != NSNotFound ) {
+        buttonA.valueChangedHandler = ^(GCControllerButtonInput *button, float value, BOOL pressed) {
+            if ( pressed ) {
+                keystat_senddata((int)mappedKey);
+            } else {
+                keystat_senddata( (UINT8) ((int)mappedKey | 0x80));
+            }
+        };
+    }
+    
+    mappedKey = [self.keyMapper getMappedKeyForControl:MFI_BUTTON_B];
+    if ( mappedKey != NSNotFound ) {
+        buttonB.valueChangedHandler = ^(GCControllerButtonInput *button, float value, BOOL pressed) {
+            if ( pressed ) {
+                keystat_senddata((int)mappedKey);
+            } else {
+                keystat_senddata( (UINT8) ((int)mappedKey | 0x80));
+            }
+        };
+    }
+    
+    mappedKey = [self.keyMapper getMappedKeyForControl:MFI_BUTTON_LS];
+    if ( mappedKey != NSNotFound ) {
+        buttonLS.valueChangedHandler = ^(GCControllerButtonInput *button, float value, BOOL pressed) {
+            if ( pressed ) {
+                keystat_senddata((int)mappedKey);
+            } else {
+                keystat_senddata( (UINT8) ((int)mappedKey | 0x80));
+            }
+        };
+    }
+    
+    mappedKey = [self.keyMapper getMappedKeyForControl:MFI_BUTTON_RS];
+    if ( mappedKey != NSNotFound ) {
+        buttonRS.valueChangedHandler = ^(GCControllerButtonInput *button, float value, BOOL pressed) {
+            if ( pressed ) {
+                keystat_senddata((int)mappedKey);
+            } else {
+                keystat_senddata( (UINT8) ((int)mappedKey | 0x80));
+            }
+        };
+    }
+    
+    mappedKey = [self.keyMapper getMappedKeyForControl:MFI_BUTTON_LT];
+    if ( mappedKey != NSNotFound && buttonLT != nil ) {
+        buttonLT.valueChangedHandler = ^(GCControllerButtonInput *button, float value, BOOL pressed) {
+            if ( pressed ) {
+                keystat_senddata((int)mappedKey);
+            } else {
+                keystat_senddata( (UINT8) ((int)mappedKey | 0x80));
+            }
+        };
+    }
+    
+    mappedKey = [self.keyMapper getMappedKeyForControl:MFI_BUTTON_RT];
+    if ( mappedKey != NSNotFound && buttonLT != nil ) {
+        buttonRT.valueChangedHandler = ^(GCControllerButtonInput *button, float value, BOOL pressed) {
+            if ( pressed ) {
+                keystat_senddata((int)mappedKey);
+            } else {
+                keystat_senddata( (UINT8) ((int)mappedKey | 0x80));
+            }
+        };
+    }
+    
+    KeyboardKey mappedKeyDpadUp = [self.keyMapper getMappedKeyForControl:MFI_DPAD_UP];
+    KeyboardKey mappedKeyDpadDown = [self.keyMapper getMappedKeyForControl:MFI_DPAD_DOWN];
+    KeyboardKey mappedKeyDpadLeft = [self.keyMapper getMappedKeyForControl:MFI_DPAD_LEFT];
+    KeyboardKey mappedKeyDpadRight = [self.keyMapper getMappedKeyForControl:MFI_DPAD_RIGHT];
+    if ( mappedKeyDpadUp != NSNotFound || mappedKeyDpadDown != NSNotFound || mappedKeyDpadLeft != NSNotFound || mappedKeyDpadRight != NSNotFound ) {
+        dpad.valueChangedHandler = ^(GCControllerDirectionPad *gcdpad, float xvalue, float yvalue) {
+            if ( mappedKeyDpadUp != NSNotFound && yvalue > 0.0 ) {
+                keystat_senddata((int)mappedKeyDpadUp);
+            } else if ( mappedKeyDpadUp != NSNotFound && yvalue <= 0.0 ) {
+                keystat_senddata( (UINT8) ((int)mappedKeyDpadUp | 0x80));
+            }
+            
+            if ( mappedKeyDpadDown != NSNotFound && yvalue < 0.0 ) {
+                keystat_senddata((int)mappedKeyDpadDown);
+            } else if ( mappedKeyDpadDown != NSNotFound && yvalue >= 0.0 ) {
+                keystat_senddata( (UINT8) ((int)mappedKeyDpadDown | 0x80));
+            }
+            
+            if ( mappedKeyDpadRight != NSNotFound && xvalue > 0.0 ) {
+                keystat_senddata((int)mappedKeyDpadRight);
+            } else if ( mappedKeyDpadRight != NSNotFound && xvalue <= 0.0 ) {
+                keystat_senddata( (UINT8) ((int)mappedKeyDpadRight | 0x80));
+            }
+            
+            if ( mappedKeyDpadLeft != NSNotFound && xvalue < 0.0 ) {
+                keystat_senddata((int)mappedKeyDpadLeft);
+            } else if ( mappedKeyDpadLeft != NSNotFound && xvalue >= 0.0 ) {
+                keystat_senddata( (UINT8) ((int)mappedKeyDpadLeft | 0x80));
+            }
+            
+        };
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -165,13 +356,32 @@ struct KeyCap keyCapDefinitions[] = {
     return [keyDefs copy];
 }
 
-// Construct the keyboard key views using auto layout constraints entirely
-// It gets constructed from the bottom up (pinned to the bottom)
--(void) constructKeyboard {
+-(NSArray*) objc_keyCapsDefs:(struct KeyCap[])defs {
+    NSMutableArray *keyDefs = [NSMutableArray array];
+    NSMutableArray *keyDefsRow = [NSMutableArray array];
+    int i = 0;
+    while (defs[i].widthMultiplier) {
+        struct KeyCap keyCap = defs[i];
+        if ( keyCap.widthMultiplier == -1.0 ) {
+            [keyDefs addObject:[keyDefsRow copy]];
+            [keyDefsRow removeAllObjects];
+            i++;
+            continue;
+        }
+        [keyDefsRow addObject:@[ [NSNumber numberWithFloat:keyCap.widthMultiplier],
+                                 [NSString stringWithUTF8String:keyCap.key1],
+                                 [NSNumber numberWithInt:keyCap.code1],
+                                 keyCap.key2 != 0 ? [NSString stringWithUTF8String:keyCap.key2] : @""
+                                 ]];
+        i++;
+    }
+    [keyDefs addObject:keyDefsRow];
+    return [keyDefs copy];
     
-    NSArray *keyDefinitions = [self objc_keyCapsDefinitions];
-    UIView *keyboardContainer = self.keyboardContainerView;
-    UIView *lastVerticalView = nil;
+}
+
+- (void)populateKeyboardKeysInContainerView:(UIView *)keyboardContainer keyDefinitions:(NSArray *)keyDefinitions keyCapViews:(NSMutableArray*)keyCapViews {
+  UIView *lastVerticalView = nil;
     UIView *lastHorizontalView = nil;
     NSUInteger keyboardRow = 0;
 
@@ -193,7 +403,7 @@ struct KeyCap keyCapDefinitions[] = {
             
 //            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(onKeyTap:)];
 //            [keyCapView addGestureRecognizer:tap];
-            [self.keyCapViews addObject:keyCapView];
+            [keyCapViews addObject:keyCapView];
             
             CGFloat widthMultiplier = [[keyDef objectAtIndex:KeyCapIndexWidthMultiplier] floatValue] * KEYCAP_WIDTH_PCT;
             
@@ -240,14 +450,31 @@ struct KeyCap keyCapDefinitions[] = {
     }
 }
 
+// Construct the keyboard key views using auto layout constraints entirely
+// It gets constructed from the bottom up (pinned to the bottom)
+-(void) constructKeyboard {    
+    NSArray *keyDefinitions = [self objc_keyCapsDefs:keyCapDefinitions];
+    UIView *keyboardContainer = self.keyboardContainerView;
+    [self populateKeyboardKeysInContainerView:keyboardContainer keyDefinitions:keyDefinitions keyCapViews:self.keyCapViews];
+}
+
+-(void) constructAltKeyboard {
+    NSArray *keyDefinitions = [self objc_keyCapsDefs:altKeyDefs];
+    UIView *keyboardContainer = self.altKeyboardContainerView;
+    [self populateKeyboardKeysInContainerView:keyboardContainer keyDefinitions:keyDefinitions keyCapViews:self.altKeyCapViews];
+}
+
+
 - (void) refreshAllKeyCapViews {
     for (KeyCapView *view in self.keyCapViews) {
         [view setupWithKeyMapper:self.keyMapperWorkingCopy];
     }
+    for (KeyCapView *view in self.altKeyCapViews) {
+        [view setupWithKeyMapper:self.keyMapperWorkingCopy];
+    }
 }
 
-- (void) onKeyTap:(UITapGestureRecognizer*)sender {
-    KeyCapView *view = (KeyCapView*) sender.view;
+- (void) remapKeyWithKeyCapView:(KeyCapView*)view {
     self.alertView = [[UIAlertView alloc] initWithTitle:@"Remap Key" message:[NSString stringWithFormat:@"Press a button to map the [%@] key",[view.keyDef objectAtIndex:KeyCapIndexKey]] delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Unbind",nil];
     [self.alertView show];
     self.alertView.tag = [[view.keyDef objectAtIndex:KeyCapIndexCode] integerValue];
@@ -260,6 +487,9 @@ struct KeyCap keyCapDefinitions[] = {
 }
 
 - (void) onKeyDown:(KeyCapView*)sender {
+    if ( self.isRemapControlsMode ) {
+        return;
+    }
     NSInteger keyCode = [[sender.keyDef objectAtIndex:KeyCapIndexCode] integerValue];
     NSLog(@"on key down, key: %li",(long)keyCode);
     keystat_senddata(keyCode);
@@ -267,8 +497,22 @@ struct KeyCap keyCapDefinitions[] = {
 
 - (void) onKeyUp:(KeyCapView*)sender {
     NSInteger keyCode = [[sender.keyDef objectAtIndex:KeyCapIndexCode] integerValue];
+    if ( keyCode == KEY_FN ) {
+        [self switchKeyboardViews];
+        return;
+    }
+    if ( self.isRemapControlsMode ) {
+        [self remapKeyWithKeyCapView:sender];
+        return;
+    }
     NSLog(@"on key up, key: %li",(long)keyCode);
     keystat_senddata( (UINT8) (keyCode | 0x80));
+}
+
+- (void)switchKeyboardViews {
+    [self refreshAllKeyCapViews];
+    self.keyboardContainerView.hidden = !self.keyboardContainerView.hidden;
+    self.altKeyboardContainerView.hidden = !self.altKeyboardContainerView.hidden;
 }
 
 - (void) startRemappingControlsForMfiControllerForKey:(NSNumber*)keyCode {
@@ -411,29 +655,43 @@ struct KeyCap keyCapDefinitions[] = {
     self.currentlyMappingKey = nil;
 }
 
+-(IBAction) remapButtonPressed:(id)sender {
+    [self.remapControls enumerateObjectsUsingBlock:^(UIButton *button, NSUInteger idx, BOOL * _Nonnull stop) {
+        button.hidden = NO;
+    }];
+    self.isRemapControlsMode = YES;
+}
+
 -(IBAction)saveButtonTapped:(id)sender {
     self.keyMapper = [self.keyMapperWorkingCopy copy];
     [self.keyMapper saveKeyMapping];
     self.keyMapperWorkingCopy = nil;
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-        self.onDismissal();
+    [self setupMfiController:[[GCController controllers] firstObject]];
+    self.isRemapControlsMode = NO;
+    [self.remapControls enumerateObjectsUsingBlock:^(UIButton *button, NSUInteger idx, BOOL * _Nonnull stop) {
+        button.hidden = YES;
     }];
 }
 
 -(IBAction)cancelButtonTapped:(id)sender {
     self.keyMapperWorkingCopy = nil;
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:^{
-        self.onDismissal();
-    }];    
+    if ( self.isRemapControlsMode ) {
+        self.isRemapControlsMode = NO;
+        [self.remapControls enumerateObjectsUsingBlock:^(UIButton *button, NSUInteger idx, BOOL * _Nonnull stop) {
+            button.hidden = YES;
+        }];
+        return;
+    }
+    self.view.hidden = YES;
 }
 
 -(IBAction) defaultsButtonTapped:(id)sender {
     [self.keyMapperWorkingCopy resetToDefaults];
     [self refreshAllKeyCapViews];
-}
-
--(IBAction) dismissKeyboard:(id)sender {
-    self.view.hidden = YES;
+    self.isRemapControlsMode = NO;
+    [self.remapControls enumerateObjectsUsingBlock:^(UIButton *button, NSUInteger idx, BOOL * _Nonnull stop) {
+        button.hidden = YES;
+    }];
 }
 
 #
@@ -521,4 +779,9 @@ struct KeyCap keyCapDefinitions[] = {
     return NO;
 }
 
+- (void)dealloc {
+    [_remapControls release];
+    [_remapButton release];
+    [super dealloc];
+}
 @end

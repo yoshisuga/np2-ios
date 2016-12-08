@@ -22,6 +22,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:GCControllerDidDisconnectNotification
                                                   object:nil];
+    [super dealloc];
 }
 
 - (void)discoverController:(void (^)(GCController *gameController))controllerCallbackSetup disconnectedCallback:(void (^)(void))controllerDisconnectedCallback{
