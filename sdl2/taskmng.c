@@ -11,6 +11,9 @@
 
 	BOOL	task_avail;
 
+BOOL did_click;
+UINT8 cycles_after_click = 0;
+
 
 void sighandler(int signo) {
 
@@ -22,6 +25,8 @@ void sighandler(int signo) {
 void taskmng_initialize(void) {
 
 	task_avail = TRUE;
+    did_click = FALSE;
+    cycles_after_click = 0;
 }
 
 void taskmng_exit(void) {
@@ -45,11 +50,32 @@ void taskmng_rol(void) {
     int motionY;
     int buttonX;
     int buttonY;
+    
+    if ( did_click ) {
+        fprintf(stderr,"cycles after click = %i",cycles_after_click);
+        if ( cycles_after_click++ > 60 ) {
+            fprintf(stderr,"cycles met, lifting mouse button!");
+            mousemng_left_buttonup();
+            did_click = FALSE;
+            cycles_after_click = 0;
+        }
+    }
 
 	if ((!task_avail) || (!SDL_PollEvent(&e))) {
 		return;
 	}
 	switch(e.type) {
+        case SDL_FINGERMOTION:
+            fprintf(stderr, "on finger motion! rel motion x = %f , y = %f \n", e.tfinger.dx, e.tfinger.dy);
+            if ( menuvram == NULL ) {
+                mousemng_onfingermove(&e.tfinger);
+                if ( fabsf(e.tfinger.dx) >= 0.01 || fabsf(e.tfinger.dy) >= 0.01 ) {
+                    did_click = FALSE;
+                }
+                
+            }
+            break;
+            
 		case SDL_MOUSEMOTION:
             if ( 1 ) {}
             motionX = (int) e.motion.x * xScale + xOffset;
@@ -64,6 +90,24 @@ void taskmng_rol(void) {
             fprintf(stderr, "scaled mouse pos: %i, %i\n",motionX, motionY);
 			break;
 
+        case SDL_FINGERUP:
+            fprintf(stderr, "on finger up   ! \n");
+            if ( menuvram == NULL ) {
+                fprintf(stderr, "finger rel motion x = %f , y = %f \n",e.tfinger.dx, e.tfinger.dy);
+                if ( did_click ) {
+                    mousemng_left_buttondown();
+                    cycles_after_click = 0;
+                }
+            }
+            break;
+            
+        case SDL_FINGERDOWN:
+            if ( menuvram == NULL ) {
+                fprintf(stderr, "did touch down! \n");
+                did_click = TRUE;
+            }
+            break;
+            
 		case SDL_MOUSEBUTTONUP:
             if ( 1 ) {}
             buttonX = (int) e.button.x * xScale + xOffset;
@@ -89,7 +133,7 @@ void taskmng_rol(void) {
 #endif
 					else
 					{
-						sysmenu_menuopen(0, buttonX, buttonY);
+//                        mousemng_buttonevent(&e.button);
 					}
 					break;
 
@@ -109,7 +153,9 @@ void taskmng_rol(void) {
 					{
                         
 						menubase_moving(buttonX, buttonY, 1);
-					}
+                    } else {
+//                        mousemng_buttonevent(&e.button);
+                    }
 					break;
 
 				case SDL_BUTTON_RIGHT:

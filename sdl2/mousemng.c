@@ -32,6 +32,19 @@ void mousemng_onmove(SDL_MouseMotionEvent *motion) {
     mousemng.y += motion->yrel;
 }
 
+void mousemng_onfingermove(SDL_TouchFingerEvent *touch) {
+    mousemng.x += touch->dx * 640.0;
+    mousemng.y += touch->dy * 400.0;
+}
+
+void mousemng_left_buttonup() {
+    mousemng.btn |= uPD8255A_LEFTBIT;
+}
+
+void mousemng_left_buttondown() {
+    mousemng.btn &= ~uPD8255A_LEFTBIT;
+}
+
 void mousemng_buttonevent(SDL_MouseButtonEvent *button) {
     UINT8 bit;
     switch (button->button) {

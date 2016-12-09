@@ -13,6 +13,10 @@
 #import "MfiGameControllerHandler.h"
 
 #include "keystat.h"
+#include	"vramhdl.h"
+#include	"menubase.h"
+#include	"sysmenu.h"
+
 
 const CGFloat NUMBER_OF_KEYS_IN_ROW = 15.0f;
 
@@ -139,7 +143,7 @@ struct KeyCap altKeyDefs[] = {
     { 1.0, "pgdwn", KEY_PAGEDWN, 0 },
     { 2.0, "", KEY_BLANK, 0 },
     { -1,0,0,0 },
-    { 1.0, "", KEY_BLANK, 0 },
+    { 1.0, "menu", KEY_NP2_MENU, 0 },
     { 1.0, "home", KEY_HOME, 0 },
     { 1.0, "help", KEY_PAUSE, 0 },
     { 1.0, "-", KEY_NUMPAD_MINUS, 0 },
@@ -509,6 +513,9 @@ struct KeyCap altKeyDefs[] = {
     }
     NSInteger keyCode = [[sender.keyDef objectAtIndex:KeyCapIndexCode] integerValue];
     NSLog(@"on key down, key: %li",(long)keyCode);
+    if ( keyCode == KEY_FN || keyCode == KEY_NP2_MENU) {
+        return;
+    }
     keystat_senddata(keyCode);
 }
 
@@ -517,6 +524,14 @@ struct KeyCap altKeyDefs[] = {
     if ( keyCode == KEY_FN ) {
         [self switchKeyboardViews];
         return;
+    }
+    if ( keyCode == KEY_NP2_MENU ) {
+        if ( menuvram == NULL ) {
+            sysmenu_menuopen(0, 0, 0);
+        } else {
+            menubase_close();
+        }
+        self.view.hidden = YES;
     }
     if ( self.isRemapControlsMode ) {
         [self remapKeyWithKeyCapView:sender];
