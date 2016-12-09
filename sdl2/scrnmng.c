@@ -86,7 +86,7 @@ BRESULT scrnmng_create(int width, int height) {
 		fprintf(stderr, "Error: SDL_Init: %s\n", SDL_GetError());
 		return(FAILURE);
 	}
-	s_sdlWindow = SDL_CreateWindow(app_name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, 0);
+	s_sdlWindow = SDL_CreateWindow(app_name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_ALLOW_HIGHDPI);
 	s_renderer = SDL_CreateRenderer(s_sdlWindow, -1, 0);
 	SDL_RenderSetLogicalSize(s_renderer, width, height);
 	s_texture = SDL_CreateTexture(s_renderer, SDL_PIXELFORMAT_RGB565, SDL_TEXTUREACCESS_STATIC, width, height);
@@ -99,8 +99,16 @@ BRESULT scrnmng_create(int width, int height) {
     SDL_GetWindowSize(s_sdlWindow, &wWidth, &wHeight);
     SDL_GetRendererOutputSize(s_renderer, &pxWidth, &pxHeight);
     fprintf(stderr, "yoshi debug: Window size = %i, %i \n",wWidth,wHeight);
-    fprintf(stderr, "yoshi debug: Pixel size = %i, %i \n",pxWidth,pxHeight);
+    fprintf(stderr, "yoshi debug: Renderer size = %i, %i \n",pxWidth,pxHeight);
+    float xScale;
+    float yScale;
+    SDL_RenderGetScale(s_renderer, &xScale, &yScale);
+    fprintf(stderr, "renderer: scale x:%f, viewport y:%f \n", xScale, yScale);
+    SDL_Rect viewPort;
+    SDL_RenderGetViewport(s_renderer, &viewPort);
+    fprintf(stderr, "viewport: origin x:%i, origin y:%i , width: %i, height: %i",viewPort.x,viewPort.y, viewPort.w, viewPort.h);
     
+
 	surface = s_surface;
 	r = FALSE;
 	fmt = surface->format;
@@ -486,4 +494,30 @@ const UINT8		*q;
 
 void scrnmng_toggle_keyboard() {
     scrnmng_ios_toggle_keyboard_view(s_sdlWindow);
+}
+
+void scrnmng_get_scale(float *xScale, float *yScale) {
+    *xScale = 1.0;
+    *yScale = 1.0;
+    if ( SDL_GetWindowFlags(s_sdlWindow) & SDL_WINDOW_ALLOW_HIGHDPI) {
+        int wWidth;
+        int wHeight;
+        int pxWidth;
+        int pxHeight;
+        SDL_GetWindowSize(s_sdlWindow, &wWidth, &wHeight);
+        SDL_GetRendererOutputSize(s_renderer, &pxWidth, &pxHeight);
+        *xScale = (pxWidth * 1.0) / (wWidth * 1.0);
+        *yScale = (pxHeight * 1.0) / (wHeight * 1.0);
+    }
+}
+
+void scrnmng_get_offset(int *xOffset, int *yOffset) {
+    *xOffset = 0;
+    *yOffset = 0;
+    if ( SDL_GetWindowFlags(s_sdlWindow) & SDL_WINDOW_ALLOW_HIGHDPI) {
+        SDL_Rect viewPort;
+        SDL_RenderGetViewport(s_renderer, &viewPort);
+        *xOffset = viewPort.x;
+        *yOffset = viewPort.y;
+    }
 }

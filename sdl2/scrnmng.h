@@ -59,3 +59,6 @@ void scrnmng_menudraw(const RECT_T *rct);
 void scrnmng_ios_toggle_keyboard_view(SDL_Window *sdlWindow);
 
 void scrnmng_toggle_keyboard();
+
+void scrnmng_get_scale(float *xScale, float *yScale);
+void scrnmng_get_offset(int *xOffset, int *yOffset);

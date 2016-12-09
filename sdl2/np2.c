@@ -22,6 +22,7 @@
 #include	"vramhdl.h"
 #include	"menubase.h"
 #include	"sysmenu.h"
+#include    "mousemng.h"
 
 
 		NP2OSCFG	np2oscfg = {0, 0, 0, 0, 0};
@@ -141,6 +142,8 @@ int np2_main(int argc, char *argv[]) {
 	if (sysmenu_create() != SUCCESS) {
 		goto np2main_err3;
 	}
+    
+    mousemng_initialize();
 
 	scrnmng_initialize();
 	if (scrnmng_create(FULLSCREEN_WIDTH, FULLSCREEN_HEIGHT) != SUCCESS) {
