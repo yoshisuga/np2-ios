@@ -16,6 +16,8 @@ extern "C" {
     void mousemng_onfingermove(SDL_TouchFingerEvent *touch);
     void mousemng_left_buttonup();
     void mousemng_left_buttondown();
+    void mousemng_right_buttonup();
+    void mousemng_right_buttondown(); 
     void mousemng_buttonevent(SDL_MouseButtonEvent *button);
     
 #ifdef __cplusplus

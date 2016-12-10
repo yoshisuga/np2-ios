@@ -86,7 +86,11 @@ BRESULT scrnmng_create(int width, int height) {
 		fprintf(stderr, "Error: SDL_Init: %s\n", SDL_GetError());
 		return(FAILURE);
 	}
-	s_sdlWindow = SDL_CreateWindow(app_name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_ALLOW_HIGHDPI);
+    #if defined(__IPHONEOS__)
+	s_sdlWindow = SDL_CreateWindow(app_name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_BORDERLESS);
+#else
+    s_sdlWindow = SDL_CreateWindow(app_name, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, 0);
+#endif
 	s_renderer = SDL_CreateRenderer(s_sdlWindow, -1, 0);
 	SDL_RenderSetLogicalSize(s_renderer, width, height);
 	s_texture = SDL_CreateTexture(s_renderer, SDL_PIXELFORMAT_RGB565, SDL_TEXTUREACCESS_STATIC, width, height);

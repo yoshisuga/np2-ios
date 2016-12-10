@@ -12,6 +12,7 @@
 	BOOL	task_avail;
 
 BOOL did_click;
+BOOL is_right_click;
 UINT8 cycles_after_click = 0;
 
 
@@ -26,6 +27,7 @@ void taskmng_initialize(void) {
 
 	task_avail = TRUE;
     did_click = FALSE;
+    is_right_click = FALSE;
     cycles_after_click = 0;
 }
 
@@ -52,11 +54,15 @@ void taskmng_rol(void) {
     int buttonY;
     
     if ( did_click ) {
-        fprintf(stderr,"cycles after click = %i",cycles_after_click);
-        if ( cycles_after_click++ > 60 ) {
-            fprintf(stderr,"cycles met, lifting mouse button!");
-            mousemng_left_buttonup();
+//        fprintf(stderr,"cycles after click = %i \n",cycles_after_click);
+        if ( cycles_after_click++ > 120 ) {
+            fprintf(stderr,"cycles met, lifting mouse button! \n");
+            if ( is_right_click ) {
+                fprintf(stderr, "Doing right click! \n");
+            }
+            is_right_click ? mousemng_right_buttonup() : mousemng_left_buttonup();
             did_click = FALSE;
+            is_right_click = FALSE;
             cycles_after_click = 0;
         }
     }
@@ -69,7 +75,7 @@ void taskmng_rol(void) {
             fprintf(stderr, "on finger motion! rel motion x = %f , y = %f \n", e.tfinger.dx, e.tfinger.dy);
             if ( menuvram == NULL ) {
                 mousemng_onfingermove(&e.tfinger);
-                if ( fabsf(e.tfinger.dx) >= 0.01 || fabsf(e.tfinger.dy) >= 0.01 ) {
+                if ( fabsf(e.tfinger.dx) >= 0.02 || fabsf(e.tfinger.dy) >= 0.02 ) {
                     did_click = FALSE;
                 }
                 
@@ -95,7 +101,7 @@ void taskmng_rol(void) {
             if ( menuvram == NULL ) {
                 fprintf(stderr, "finger rel motion x = %f , y = %f \n",e.tfinger.dx, e.tfinger.dy);
                 if ( did_click ) {
-                    mousemng_left_buttondown();
+                    is_right_click ? mousemng_right_buttondown() : mousemng_left_buttondown();
                     cycles_after_click = 0;
                 }
             }
@@ -105,6 +111,13 @@ void taskmng_rol(void) {
             if ( menuvram == NULL ) {
                 fprintf(stderr, "did touch down! \n");
                 did_click = TRUE;
+            }
+            break;
+            
+        case SDL_MULTIGESTURE:
+            if ( menuvram == NULL ) {
+                fprintf(stderr, "did multi touch! \n");
+                is_right_click = TRUE;
             }
             break;
             
@@ -154,6 +167,9 @@ void taskmng_rol(void) {
                         
 						menubase_moving(buttonX, buttonY, 1);
                     } else {
+                        if ( e.button.clicks == 2 ) {
+                            fprintf(stderr, "double click detected! \n");
+                        }
 //                        mousemng_buttonevent(&e.button);
                     }
 					break;

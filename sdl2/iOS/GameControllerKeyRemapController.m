@@ -706,12 +706,13 @@ struct KeyCap altKeyDefs[] = {
 }
 
 -(IBAction)cancelButtonTapped:(id)sender {
-    self.keyMapperWorkingCopy = nil;
     if ( self.isRemapControlsMode ) {
         self.isRemapControlsMode = NO;
         [self.remapControls enumerateObjectsUsingBlock:^(UIButton *button, NSUInteger idx, BOOL * _Nonnull stop) {
             button.hidden = YES;
         }];
+        self.keyMapperWorkingCopy = nil;
+        self.keyMapperWorkingCopy = [self.keyMapper copy];
         return;
     }
     self.view.hidden = YES;

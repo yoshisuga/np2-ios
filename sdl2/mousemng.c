@@ -45,6 +45,14 @@ void mousemng_left_buttondown() {
     mousemng.btn &= ~uPD8255A_LEFTBIT;
 }
 
+void mousemng_right_buttonup() {
+    mousemng.btn |= uPD8255A_RIGHTBIT;
+}
+
+void mousemng_right_buttondown() {
+    mousemng.btn &= ~uPD8255A_RIGHTBIT;
+}
+
 void mousemng_buttonevent(SDL_MouseButtonEvent *button) {
     UINT8 bit;
     switch (button->button) {
