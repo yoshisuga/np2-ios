@@ -43,7 +43,7 @@
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ihv-aC-sb7">
-                    <rect key="frame" x="107.5" y="34" width="85" height="44.5"/>
+                    <rect key="frame" x="107.5" y="11.5" width="85" height="44.5"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="85" id="82d-Qy-Xfg"/>
                         <constraint firstAttribute="height" constant="44" id="bOc-8m-OXA"/>
@@ -54,7 +54,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAx-JO-gDf">
-                    <rect key="frame" x="466" y="34" width="85" height="44.5"/>
+                    <rect key="frame" x="566" y="11.5" width="85" height="44.5"/>
                     <state key="normal" title="Cancel">
                         <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
@@ -63,7 +63,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ih9-iG-ECT">
-                    <rect key="frame" x="207.5" y="34" width="85" height="44.5"/>
+                    <rect key="frame" x="207.5" y="11.5" width="85" height="44.5"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="107" id="8aa-Yx-81a"/>
                         <constraint firstAttribute="height" constant="44" id="qBN-1t-J0B"/>
@@ -80,15 +80,46 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ERp-Vu-6wr">
-                    <rect key="frame" x="8" y="34" width="85" height="44.5"/>
+                    <rect key="frame" x="8" y="11.5" width="85" height="44.5"/>
                     <state key="normal" title="Remap"/>
                     <connections>
                         <action selector="remapButtonPressed:" destination="-1" eventType="touchUpInside" id="m7H-mu-3Wr"/>
                     </connections>
                 </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save States:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="112-7f-ida">
+                    <rect key="frame" x="8" y="70" width="75.5" height="16"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8kI-mx-Z4o">
+                    <rect key="frame" x="91.5" y="64.5" width="119" height="29"/>
+                    <segments>
+                        <segment title="0"/>
+                        <segment title="1"/>
+                        <segment title="2"/>
+                        <segment title="3"/>
+                        <segment title="4"/>
+                    </segments>
+                </segmentedControl>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c20-Xg-fNW">
+                    <rect key="frame" x="274.5" y="63.5" width="46" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="46" id="HOy-GP-9Ex"/>
+                    </constraints>
+                    <state key="normal" title="Load"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TmV-rg-E8p">
+                    <rect key="frame" x="222.5" y="63.5" width="40" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="YJu-rb-ccN"/>
+                    </constraints>
+                    <state key="normal" title="Save"/>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
+                <constraint firstItem="TmV-rg-E8p" firstAttribute="centerY" secondItem="8kI-mx-Z4o" secondAttribute="centerY" id="0C6-CH-LHU"/>
                 <constraint firstItem="ERp-Vu-6wr" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="0.15" id="3dR-jI-LlC"/>
                 <constraint firstItem="ERp-Vu-6wr" firstAttribute="top" secondItem="Ihv-aC-sb7" secondAttribute="top" id="6K1-DH-vEW"/>
                 <constraint firstItem="zAx-JO-gDf" firstAttribute="top" secondItem="Ihv-aC-sb7" secondAttribute="top" id="6TO-tV-bng"/>
@@ -96,13 +127,19 @@
                 <constraint firstAttribute="trailing" secondItem="OTP-XW-y5G" secondAttribute="trailing" id="7fk-Fg-lD1"/>
                 <constraint firstItem="PbL-95-ilz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ALZ-jN-EW8"/>
                 <constraint firstItem="OTP-XW-y5G" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="E5G-4o-fIe"/>
+                <constraint firstItem="c20-Xg-fNW" firstAttribute="leading" secondItem="TmV-rg-E8p" secondAttribute="trailing" constant="12" id="GxG-q4-fXb"/>
                 <constraint firstItem="zAx-JO-gDf" firstAttribute="height" secondItem="Ihv-aC-sb7" secondAttribute="height" id="HFd-QQ-Vpx"/>
-                <constraint firstItem="zAx-JO-gDf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="1.5" constant="8" id="Kdj-w0-y90"/>
+                <constraint firstItem="zAx-JO-gDf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="1.8" constant="8" id="Kdj-w0-y90"/>
                 <constraint firstItem="Ih9-iG-ECT" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="0.75" id="Mgp-p2-fmB"/>
+                <constraint firstItem="112-7f-ida" firstAttribute="leading" secondItem="ERp-Vu-6wr" secondAttribute="leading" id="Myi-iY-kRa"/>
                 <constraint firstItem="Ih9-iG-ECT" firstAttribute="width" secondItem="Ihv-aC-sb7" secondAttribute="width" id="R6y-RO-5t1"/>
                 <constraint firstItem="ERp-Vu-6wr" firstAttribute="width" secondItem="Ihv-aC-sb7" secondAttribute="width" id="Sjt-Ms-DqY"/>
+                <constraint firstItem="c20-Xg-fNW" firstAttribute="centerY" secondItem="8kI-mx-Z4o" secondAttribute="centerY" id="VRR-4f-zuc"/>
                 <constraint firstItem="ERp-Vu-6wr" firstAttribute="height" secondItem="Ihv-aC-sb7" secondAttribute="height" id="WPj-g5-bXs"/>
+                <constraint firstItem="TmV-rg-E8p" firstAttribute="leading" secondItem="8kI-mx-Z4o" secondAttribute="trailing" constant="12" id="X56-pC-F84"/>
                 <constraint firstItem="Ih9-iG-ECT" firstAttribute="top" secondItem="Ihv-aC-sb7" secondAttribute="top" id="XbU-xP-HYw"/>
+                <constraint firstItem="112-7f-ida" firstAttribute="top" secondItem="ERp-Vu-6wr" secondAttribute="bottom" constant="14" id="cEo-8Z-n2m"/>
+                <constraint firstItem="8kI-mx-Z4o" firstAttribute="leading" secondItem="112-7f-ida" secondAttribute="trailing" constant="8" id="hHv-pD-5t8"/>
                 <constraint firstItem="zAx-JO-gDf" firstAttribute="centerX" secondItem="Ihv-aC-sb7" secondAttribute="centerX" multiplier="2" id="hJc-6p-crb"/>
                 <constraint firstAttribute="bottom" secondItem="PbL-95-ilz" secondAttribute="bottom" id="kCc-QA-uYA"/>
                 <constraint firstAttribute="bottom" secondItem="OTP-XW-y5G" secondAttribute="bottom" id="lA1-17-1Q3"/>
@@ -110,7 +147,8 @@
                 <constraint firstItem="Ihv-aC-sb7" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="0.45" id="niB-eU-bnx"/>
                 <constraint firstItem="OTP-XW-y5G" firstAttribute="width" secondItem="PbL-95-ilz" secondAttribute="width" id="rcG-cT-eIf"/>
                 <constraint firstItem="OTP-XW-y5G" firstAttribute="height" secondItem="PbL-95-ilz" secondAttribute="height" id="tKw-46-20v"/>
-                <constraint firstItem="Ihv-aC-sb7" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.3" id="vLe-Gk-22l"/>
+                <constraint firstItem="Ihv-aC-sb7" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" multiplier="0.18" id="vLe-Gk-22l"/>
+                <constraint firstItem="8kI-mx-Z4o" firstAttribute="centerY" secondItem="112-7f-ida" secondAttribute="centerY" id="vn8-Dp-Jjl"/>
                 <constraint firstAttribute="trailing" secondItem="PbL-95-ilz" secondAttribute="trailing" id="zbm-Dr-7Jd"/>
                 <constraint firstItem="Ih9-iG-ECT" firstAttribute="height" secondItem="Ihv-aC-sb7" secondAttribute="height" id="zd1-zF-ZZI"/>
             </constraints>
@@ -120,6 +158,7 @@
                     <exclude reference="hJc-6p-crb"/>
                 </mask>
             </variation>
+            <point key="canvasLocation" x="64.5" y="53.5"/>
         </view>
     </objects>
 </document>

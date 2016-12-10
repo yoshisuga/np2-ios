@@ -76,9 +76,13 @@ void taskmng_rol(void) {
         case SDL_FINGERMOTION:
             fprintf(stderr, "on finger motion! rel motion x = %f , y = %f , click dragging = %s \n", e.tfinger.dx, e.tfinger.dy,is_click_dragging ? "yes" : "no");
             if ( menuvram == NULL ) {
-                mousemng_onfingermove(&e.tfinger);
-                if ( fabsf(e.tfinger.dx) >= 0.02 || fabsf(e.tfinger.dy) >= 0.02 ) {
+                
+                if ( fabsf(e.tfinger.dx) >= 0.01 || fabsf(e.tfinger.dy) >= 0.01 ) {
                     did_click = FALSE;
+                }
+                
+                if ( fabsf(e.tfinger.dx) >= 0.001 || fabsf(e.tfinger.dy) >= 0.001 ) {
+                    mousemng_onfingermove(&e.tfinger);
                 }
                 
             }
@@ -89,7 +93,7 @@ void taskmng_rol(void) {
             motionX = (int) e.motion.x * xScale + xOffset;
             motionY = (int) e.motion.y * yScale + yOffset;
 			if (menuvram == NULL) {
-                mousemng_onmove(&e.motion);
+//                mousemng_onmove(&e.motion);
 			}
 			else {
 				menubase_moving(motionX, motionY, 0);
