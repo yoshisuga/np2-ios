@@ -13,6 +13,7 @@
 
 BOOL did_click;
 BOOL is_right_click;
+BOOL is_click_dragging;
 UINT8 cycles_after_click = 0;
 
 
@@ -28,6 +29,7 @@ void taskmng_initialize(void) {
 	task_avail = TRUE;
     did_click = FALSE;
     is_right_click = FALSE;
+    is_click_dragging = FALSE;
     cycles_after_click = 0;
 }
 
@@ -72,7 +74,7 @@ void taskmng_rol(void) {
 	}
 	switch(e.type) {
         case SDL_FINGERMOTION:
-            fprintf(stderr, "on finger motion! rel motion x = %f , y = %f \n", e.tfinger.dx, e.tfinger.dy);
+            fprintf(stderr, "on finger motion! rel motion x = %f , y = %f , click dragging = %s \n", e.tfinger.dx, e.tfinger.dy,is_click_dragging ? "yes" : "no");
             if ( menuvram == NULL ) {
                 mousemng_onfingermove(&e.tfinger);
                 if ( fabsf(e.tfinger.dx) >= 0.02 || fabsf(e.tfinger.dy) >= 0.02 ) {
@@ -103,6 +105,10 @@ void taskmng_rol(void) {
                 if ( did_click ) {
                     is_right_click ? mousemng_right_buttondown() : mousemng_left_buttondown();
                     cycles_after_click = 0;
+                }
+                if ( is_click_dragging ) {
+                    mousemng_left_buttonup();
+                    is_click_dragging = FALSE;
                 }
             }
             break;
@@ -169,6 +175,9 @@ void taskmng_rol(void) {
                     } else {
                         if ( e.button.clicks == 2 ) {
                             fprintf(stderr, "double click detected! \n");
+                            is_click_dragging = TRUE;
+                            mousemng_left_buttondown();
+                            did_click = FALSE;
                         }
 //                        mousemng_buttonevent(&e.button);
                     }
