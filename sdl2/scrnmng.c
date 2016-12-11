@@ -96,23 +96,6 @@ BRESULT scrnmng_create(int width, int height) {
 	s_texture = SDL_CreateTexture(s_renderer, SDL_PIXELFORMAT_RGB565, SDL_TEXTUREACCESS_STATIC, width, height);
 	s_surface = SDL_CreateRGBSurface(SDL_SWSURFACE, width, height, 16, 0xf800, 0x07e0, 0x001f, 0);
 
-    int wWidth;
-    int wHeight;
-    int pxWidth;
-    int pxHeight;
-    SDL_GetWindowSize(s_sdlWindow, &wWidth, &wHeight);
-    SDL_GetRendererOutputSize(s_renderer, &pxWidth, &pxHeight);
-    fprintf(stderr, "yoshi debug: Window size = %i, %i \n",wWidth,wHeight);
-    fprintf(stderr, "yoshi debug: Renderer size = %i, %i \n",pxWidth,pxHeight);
-    float xScale;
-    float yScale;
-    SDL_RenderGetScale(s_renderer, &xScale, &yScale);
-    fprintf(stderr, "renderer: scale x:%f, viewport y:%f \n", xScale, yScale);
-    SDL_Rect viewPort;
-    SDL_RenderGetViewport(s_renderer, &viewPort);
-    fprintf(stderr, "viewport: origin x:%i, origin y:%i , width: %i, height: %i",viewPort.x,viewPort.y, viewPort.w, viewPort.h);
-    
-
 	surface = s_surface;
 	r = FALSE;
 	fmt = surface->format;

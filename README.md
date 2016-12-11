@@ -9,14 +9,19 @@ How to build
 ------------
 You need to build the required SDL library, `libSDL2.a`, in Xcode first. [SDL source](https://www.libsdl.org/download-2.0.php) includes an Xcode project with a libSDL2 target that you can use for an iOS device or Simulator. Put the `libSDL2.a` file in `sdl2/iOS/SDL2/lib/libSDL2.a`.
 
-Status
-------
-I've added an onscreen keyboard you can call up by tapping near the bottom of the screen. Not all keys are supported yet.
+Running
+-------
+Copy the included `font.tmp` file to the Documents directory of the app, using iTunes or iExplorer. This is so that the text is rendered on the screen correctly.
 
-Need to fix:
+Controls
+--------
 
-- support more keyboard keys
-- support remapping keyboard controls to an mFi controller
-- enable the high DPI setting so that the text is more readable on retina devices
-- enabling high DPI setting throws off the config menu selection when tapping on them because of the resolution difference, so fix this
+- Tap near the bottom of the screen to show an onscreen keyboard.
+- Onscreen keyboard includes an option to Remap keyboard controls to mFi controller
+- Mouse left click: tap on screen
+- Mouse movement: drag finger on screen
+- Mouse click-drag: double tap, hold, and drag finger
+- Mouse right click: tap with 2 fingers
+- The config menu is opened via the "menu" button on the onscreen keyboard (use the "fn" key for more keys)
+- Use the config menu to open a disk image, and then go to Emulate -> Reset
 

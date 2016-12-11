@@ -58,10 +58,10 @@ void taskmng_rol(void) {
     if ( did_click ) {
 //        fprintf(stderr,"cycles after click = %i \n",cycles_after_click);
         if ( cycles_after_click++ > 120 ) {
-            fprintf(stderr,"cycles met, lifting mouse button! \n");
-            if ( is_right_click ) {
-                fprintf(stderr, "Doing right click! \n");
-            }
+//            fprintf(stderr,"cycles met, lifting mouse button! \n");
+//            if ( is_right_click ) {
+//                fprintf(stderr, "Doing right click! \n");
+//            }
             is_right_click ? mousemng_right_buttonup() : mousemng_left_buttonup();
             did_click = FALSE;
             is_right_click = FALSE;
@@ -74,7 +74,7 @@ void taskmng_rol(void) {
 	}
 	switch(e.type) {
         case SDL_FINGERMOTION:
-            fprintf(stderr, "on finger motion! rel motion x = %f , y = %f , click dragging = %s \n", e.tfinger.dx, e.tfinger.dy,is_click_dragging ? "yes" : "no");
+//            fprintf(stderr, "on finger motion! rel motion x = %f , y = %f , click dragging = %s \n", e.tfinger.dx, e.tfinger.dy,is_click_dragging ? "yes" : "no");
             if ( menuvram == NULL ) {
                 
                 if ( fabsf(e.tfinger.dx) >= 0.01 || fabsf(e.tfinger.dy) >= 0.01 ) {
@@ -98,14 +98,12 @@ void taskmng_rol(void) {
 			else {
 				menubase_moving(motionX, motionY, 0);
 			}
-            fprintf(stderr, "orig mouse pos: %i, %i\n",e.motion.x,e.motion.y);
-            fprintf(stderr, "scaled mouse pos: %i, %i\n",motionX, motionY);
 			break;
 
         case SDL_FINGERUP:
-            fprintf(stderr, "on finger up   ! \n");
+//            fprintf(stderr, "on finger up   ! \n");
             if ( menuvram == NULL ) {
-                fprintf(stderr, "finger rel motion x = %f , y = %f \n",e.tfinger.dx, e.tfinger.dy);
+//                fprintf(stderr, "finger rel motion x = %f , y = %f \n",e.tfinger.dx, e.tfinger.dy);
                 if ( did_click ) {
                     is_right_click ? mousemng_right_buttondown() : mousemng_left_buttondown();
                     cycles_after_click = 0;
@@ -119,14 +117,14 @@ void taskmng_rol(void) {
             
         case SDL_FINGERDOWN:
             if ( menuvram == NULL ) {
-                fprintf(stderr, "did touch down! \n");
+//                fprintf(stderr, "did touch down! \n");
                 did_click = TRUE;
             }
             break;
             
         case SDL_MULTIGESTURE:
             if ( menuvram == NULL ) {
-                fprintf(stderr, "did multi touch! \n");
+//                fprintf(stderr, "did multi touch! \n");
                 is_right_click = TRUE;
             }
             break;
@@ -178,7 +176,7 @@ void taskmng_rol(void) {
 						menubase_moving(buttonX, buttonY, 1);
                     } else {
                         if ( e.button.clicks == 2 ) {
-                            fprintf(stderr, "double click detected! \n");
+//                            fprintf(stderr, "double click detected! \n");
                             is_click_dragging = TRUE;
                             mousemng_left_buttondown();
                             did_click = FALSE;
