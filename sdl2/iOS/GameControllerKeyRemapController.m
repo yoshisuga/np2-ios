@@ -214,6 +214,7 @@ void get_save_state_filename(char *path, int saveSlot) {
     self.currentlyMappingKey = nil;
     [self constructKeyboard];
     [self constructAltKeyboard];
+    self.view.alpha = self.transparencySlider.value;
 }
 
 -(void) setupMfiController:(GCController*)controller {
@@ -792,6 +793,10 @@ void get_save_state_filename(char *path, int saveSlot) {
     self.view.hidden = YES;
 }
 
+-(IBAction)adjustTransparency:(id)sender {
+    self.view.alpha = self.transparencySlider.value;
+}
+
 #
 # pragma mark - UIAlertViewDelegate
 #
@@ -881,6 +886,7 @@ void get_save_state_filename(char *path, int saveSlot) {
     [_remapControls release];
     [_remapButton release];
     [_saveStateSelector release];
+    [_transparencySlider release];
     [super dealloc];
 }
 @end

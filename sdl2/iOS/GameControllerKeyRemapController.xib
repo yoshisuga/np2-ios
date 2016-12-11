@@ -19,6 +19,7 @@
                 <outlet property="remapButton" destination="ERp-Vu-6wr" id="Efi-DL-IfB"/>
                 <outlet property="saveButton" destination="Ihv-aC-sb7" id="8Jk-aC-NHh"/>
                 <outlet property="saveStateSelector" destination="8kI-mx-Z4o" id="Z6K-MV-iey"/>
+                <outlet property="transparencySlider" destination="oFh-c7-tS2" id="OYd-cf-Soe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="remapControls" destination="Ihv-aC-sb7" id="m1m-Xc-naS"/>
                 <outletCollection property="remapControls" destination="Ih9-iG-ECT" id="Jdq-55-gGx"/>
@@ -31,20 +32,19 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PbL-95-ilz" userLabel="Keyboard Container View">
                     <rect key="frame" x="0.0" y="155" width="667" height="220"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="220" id="QNq-rB-Zxd"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OTP-XW-y5G" userLabel="Alt Keyboard Container View">
                     <rect key="frame" x="0.0" y="155" width="667" height="220"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="220" id="WRH-mI-9Z4"/>
                     </constraints>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ihv-aC-sb7">
                     <rect key="frame" x="108" y="12" width="85" height="44"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="85" id="82d-Qy-Xfg"/>
                         <constraint firstAttribute="height" constant="44" id="bOc-8m-OXA"/>
@@ -56,6 +56,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zAx-JO-gDf">
                     <rect key="frame" x="566" y="12" width="85" height="44"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Cancel">
                         <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
@@ -65,6 +66,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ih9-iG-ECT">
                     <rect key="frame" x="208" y="12" width="85" height="44"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="107" id="8aa-Yx-81a"/>
                         <constraint firstAttribute="height" constant="44" id="qBN-1t-J0B"/>
@@ -82,6 +84,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ERp-Vu-6wr">
                     <rect key="frame" x="8" y="12" width="85" height="44"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Remap"/>
                     <connections>
                         <action selector="remapButtonPressed:" destination="-1" eventType="touchUpInside" id="m7H-mu-3Wr"/>
@@ -90,7 +93,7 @@
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Save States:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="112-7f-ida">
                     <rect key="frame" x="8" y="70" width="76" height="16"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <nil key="textColor"/>
+                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="8kI-mx-Z4o">
@@ -105,6 +108,7 @@
                 </segmentedControl>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c20-Xg-fNW">
                     <rect key="frame" x="275" y="63" width="46" height="30"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="46" id="HOy-GP-9Ex"/>
                     </constraints>
@@ -115,6 +119,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TmV-rg-E8p">
                     <rect key="frame" x="223" y="63" width="40" height="30"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="40" id="YJu-rb-ccN"/>
                     </constraints>
@@ -123,8 +128,16 @@
                         <action selector="saveStateButtonTapped:" destination="-1" eventType="touchUpInside" id="DXz-LZ-Kd9"/>
                     </connections>
                 </button>
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.20000000000000001" minValue="0.10000000000000001" maxValue="0.90000000000000002" translatesAutoresizingMaskIntoConstraints="NO" id="oFh-c7-tS2">
+                    <rect key="frame" x="535" y="63" width="118" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="114" id="Ihq-VF-eBd"/>
+                    </constraints>
+                    <connections>
+                        <action selector="adjustTransparency:" destination="-1" eventType="valueChanged" id="PtD-vf-g3s"/>
+                    </connections>
+                </slider>
             </subviews>
-            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="TmV-rg-E8p" firstAttribute="centerY" secondItem="8kI-mx-Z4o" secondAttribute="centerY" id="0C6-CH-LHU"/>
                 <constraint firstItem="ERp-Vu-6wr" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="0.15" id="3dR-jI-LlC"/>
@@ -133,6 +146,7 @@
                 <constraint firstItem="PbL-95-ilz" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.4" id="7Tq-sc-r5F"/>
                 <constraint firstAttribute="trailing" secondItem="OTP-XW-y5G" secondAttribute="trailing" id="7fk-Fg-lD1"/>
                 <constraint firstItem="PbL-95-ilz" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="ALZ-jN-EW8"/>
+                <constraint firstItem="oFh-c7-tS2" firstAttribute="trailing" secondItem="zAx-JO-gDf" secondAttribute="trailing" id="DPh-0s-n19"/>
                 <constraint firstItem="OTP-XW-y5G" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="E5G-4o-fIe"/>
                 <constraint firstItem="c20-Xg-fNW" firstAttribute="leading" secondItem="TmV-rg-E8p" secondAttribute="trailing" constant="12" id="GxG-q4-fXb"/>
                 <constraint firstItem="zAx-JO-gDf" firstAttribute="height" secondItem="Ihv-aC-sb7" secondAttribute="height" id="HFd-QQ-Vpx"/>
@@ -148,6 +162,7 @@
                 <constraint firstItem="112-7f-ida" firstAttribute="top" secondItem="ERp-Vu-6wr" secondAttribute="bottom" constant="14" id="cEo-8Z-n2m"/>
                 <constraint firstItem="8kI-mx-Z4o" firstAttribute="leading" secondItem="112-7f-ida" secondAttribute="trailing" constant="8" id="hHv-pD-5t8"/>
                 <constraint firstItem="zAx-JO-gDf" firstAttribute="centerX" secondItem="Ihv-aC-sb7" secondAttribute="centerX" multiplier="2" id="hJc-6p-crb"/>
+                <constraint firstItem="oFh-c7-tS2" firstAttribute="centerY" secondItem="112-7f-ida" secondAttribute="centerY" id="hNU-ft-wNA"/>
                 <constraint firstAttribute="bottom" secondItem="PbL-95-ilz" secondAttribute="bottom" id="kCc-QA-uYA"/>
                 <constraint firstAttribute="bottom" secondItem="OTP-XW-y5G" secondAttribute="bottom" id="lA1-17-1Q3"/>
                 <constraint firstItem="zAx-JO-gDf" firstAttribute="width" secondItem="Ihv-aC-sb7" secondAttribute="width" id="mPI-1j-gTO"/>
