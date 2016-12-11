@@ -16,6 +16,8 @@
 #include	"vramhdl.h"
 #include	"menubase.h"
 #include	"sysmenu.h"
+#include    "dosio.h"
+#include    "statsave.h"
 
 
 const CGFloat NUMBER_OF_KEYS_IN_ROW = 15.0f;
@@ -160,6 +162,12 @@ struct KeyCap altKeyDefs[] = {
     { 1.0, "", KEY_BLANK, 0 },
     { 0,0,0,0 }
 };
+
+void get_save_state_filename(char *path, int saveSlot) {
+    char filename[32];
+    sprintf(filename, "sav%i.sav",saveSlot);
+    file_cpyname(path, file_getcd(filename), 255);
+}
 
 @interface GameControllerKeyRemapController () <UIAlertViewDelegate,UITextFieldDelegate>
 @property (nonatomic, strong) NSMutableArray *keyCapViews;
@@ -727,6 +735,63 @@ struct KeyCap altKeyDefs[] = {
     }];
 }
 
+-(IBAction) saveStateButtonTapped:(id)sender {
+    NSUInteger saveSlot = [self.saveStateSelector selectedSegmentIndex];
+    int ret;
+    char path[255];
+    get_save_state_filename(path, (int) saveSlot);
+    ret = statsave_save(path);
+    if ( ret ) {
+        // show error
+        file_delete(path);
+    }
+    self.view.hidden = YES;
+}
+
+-(IBAction) loadStateButtonTapped:(id)sender {
+    NSUInteger saveSlot = [self.saveStateSelector selectedSegmentIndex];
+    int ret;
+    char path[255];
+    char buf[1024];
+    char buf2[1024 + 256];
+    get_save_state_filename(path, (int)saveSlot);
+    NSString *objc_path = [NSString stringWithCString:path encoding:NSUTF8StringEncoding];
+    ret = statsave_check(path, buf, sizeof(path));
+    self.view.hidden = YES;
+    if (ret & (~STATFLAG_DISKCHG)) {
+        UIAlertController *alert= [UIAlertController alertControllerWithTitle:@"Cannot load state"                                                                message:@""
+            preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"OK"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * action) {
+                                                           [alert dismissViewControllerAnimated:YES completion:nil];
+                                                       }];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    } else if ( ret & STATFLAG_DISKCHG ) {
+        sprintf(buf2, "Conflict: %s",buf);
+        UIAlertController *alert= [UIAlertController alertControllerWithTitle:@"Could not find disk image"                                                                message:[NSString stringWithCString:buf2 encoding:NSASCIIStringEncoding]
+                                                               preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction* cont = [UIAlertAction actionWithTitle:@"Continue"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * action) {
+                                                           statsave_load([objc_path UTF8String]);
+                                                       }];
+        UIAlertAction* cancel = [UIAlertAction actionWithTitle:@"Cancel"
+                                                         style:UIAlertActionStyleDefault
+                                                       handler:^(UIAlertAction * action) {
+                                                           [alert dismissViewControllerAnimated:YES completion:nil];
+                                                       }];
+        [alert addAction:cont];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    statsave_load(path);
+    self.view.hidden = YES;
+}
+
 #
 # pragma mark - UIAlertViewDelegate
 #
@@ -815,6 +880,7 @@ struct KeyCap altKeyDefs[] = {
 - (void)dealloc {
     [_remapControls release];
     [_remapButton release];
+    [_saveStateSelector release];
     [super dealloc];
 }
 @end

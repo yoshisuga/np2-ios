@@ -17,6 +17,7 @@
 @property (nonatomic, strong) IBOutlet UIButton *cancelButton;
 @property (nonatomic, strong) IBOutlet UIButton *defaultsButton;
 @property (retain, nonatomic) IBOutlet UIButton *remapButton;
+@property (retain, nonatomic) IBOutlet UISegmentedControl *saveStateSelector;
 @property (nonatomic, strong) KeyMapper *keyMapper;
 
 @property(nonatomic, copy) void (^onDismissal)();
