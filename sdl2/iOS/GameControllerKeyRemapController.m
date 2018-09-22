@@ -18,7 +18,7 @@
 #include	"sysmenu.h"
 #include    "dosio.h"
 #include    "statsave.h"
-
+#include    "scrnmng.h"
 
 const CGFloat NUMBER_OF_KEYS_IN_ROW = 15.0f;
 
@@ -88,8 +88,9 @@ struct KeyCap keyCapDefinitions[] = {
     { 1.0,"I",KEY_I,0 },
     { 1.0,"O",KEY_O,0 },
     { 1.0,"P",KEY_P,0 },
-    { 1.5,"[",KEY_LEFT_BRACKET,"{" },
-    { 1.5,"]",KEY_RIGHT_BRACKET,"}" },
+    { 1.0,"[",KEY_LEFT_BRACKET,"{" },
+    { 1.0,"]",KEY_RIGHT_BRACKET,"}" },
+    { 1.0,"￥",KEY_YEN,0 },
     { -1,0,0,0 },
     { 1.0,"esc",KEY_ESC,0 },
     { 1.0,"1",KEY_1,"!" },
@@ -541,6 +542,7 @@ void get_save_state_filename(char *path, int saveSlot) {
             menubase_close();
         }
         self.view.hidden = YES;
+        return;
     }
     if ( self.isRemapControlsMode ) {
         [self remapKeyWithKeyCapView:sender];

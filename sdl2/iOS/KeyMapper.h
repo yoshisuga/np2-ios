@@ -12,6 +12,7 @@ typedef NS_ENUM(NSInteger, KeyboardKey) {
     KEY_FN = 0xff,    // special! to show alternate keys
     KEY_BLANK = 0xfe, // special! blank placeholder key
     KEY_NP2_MENU = 0xfd, // special! open np2 menu
+    KEY_SCREENSHOT = 0xfc, // screenshot
     KEY_CAPS = 0x71,
     KEY_OPTION = 0x37,
     KEY_ALT = 0x73,
@@ -108,7 +109,8 @@ typedef NS_ENUM(NSInteger, KeyboardKey) {
     KEY_F9 = 0x6a,
     KEY_F10 = 0x6b,
     KEY_UNDERSCORE = 0x33,
-    KEY_CARET = 0x0c
+    KEY_CARET = 0x0c,
+    KEY_YEN = 0x0d
 };
 
 typedef NS_ENUM(NSInteger, KeyMapMappableButton) {

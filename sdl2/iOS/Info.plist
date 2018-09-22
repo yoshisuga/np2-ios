@@ -40,6 +40,8 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<false/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UIStatusBarHidden</key>
