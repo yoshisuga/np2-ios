@@ -13,6 +13,7 @@
 
 BOOL did_click;
 BOOL is_right_click;
+BOOL is_triple_touch;
 BOOL is_click_dragging;
 UINT8 cycles_after_click = 0;
 
@@ -104,11 +105,13 @@ void taskmng_rol(void) {
 //            fprintf(stderr, "on finger up   ! \n");
             if ( menuvram == NULL ) {
 //                fprintf(stderr, "finger rel motion x = %f , y = %f \n",e.tfinger.dx, e.tfinger.dy);
-                if ( did_click ) {
+                if ( is_triple_touch ) {
+                    scrnmng_toggle_keyboard();
+                    is_triple_touch = FALSE;
+                } else if ( did_click ) {
                     is_right_click ? mousemng_right_buttondown() : mousemng_left_buttondown();
                     cycles_after_click = 0;
-                }
-                if ( is_click_dragging ) {
+                } else if ( is_click_dragging ) {
                     mousemng_left_buttonup();
                     is_click_dragging = FALSE;
                 }
@@ -125,7 +128,11 @@ void taskmng_rol(void) {
         case SDL_MULTIGESTURE:
             if ( menuvram == NULL ) {
 //                fprintf(stderr, "did multi touch! \n");
-                is_right_click = TRUE;
+                if ( e.mgesture.numFingers == 3 ) {
+                    is_triple_touch = TRUE;
+                } else if ( e.mgesture.numFingers == 2 ) {
+                    is_right_click = TRUE;
+                }
             }
             break;
             
@@ -144,12 +151,6 @@ void taskmng_rol(void) {
 					else if (SDL_IsTextInputActive())
 					{
 						SDL_StopTextInput();
-					}
-					else if (buttonY >= 320)
-					{
-                        scrnmng_toggle_keyboard();
-//						SDL_StartTextInput();
-                        
 					}
 #endif
 					else
