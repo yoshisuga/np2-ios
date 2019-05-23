@@ -18,6 +18,7 @@
 		9280EC2C1DF2488200410856 /* KeyCapView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9280EC2A1DF2488200410856 /* KeyCapView.xib */; };
 		9280EC2D1DF2488200410856 /* GameControllerKeyRemapController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9280EC2B1DF2488200410856 /* GameControllerKeyRemapController.xib */; };
 		9280EC301DF5371500410856 /* ios-super-turbo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9280EC2F1DF5371500410856 /* ios-super-turbo.m */; };
+		92CA159A22961A3200EB82ED /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92CA159922961A3200EB82ED /* Metal.framework */; };
 		92D63F2C1DE1474E00A43BD2 /* libSDL2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D63F2B1DE1474E00A43BD2 /* libSDL2.a */; };
 		92D63F2E1DE14B5000A43BD2 /* GameController.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D63F2D1DE14B5000A43BD2 /* GameController.framework */; };
 		92D63F301DE14B8900A43BD2 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92D63F2F1DE14B8900A43BD2 /* CoreMotion.framework */; };
@@ -326,6 +327,7 @@
 		9280EC2B1DF2488200410856 /* GameControllerKeyRemapController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GameControllerKeyRemapController.xib; sourceTree = "<group>"; };
 		9280EC2E1DF5371500410856 /* ios-super-turbo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ios-super-turbo.h"; sourceTree = "<group>"; };
 		9280EC2F1DF5371500410856 /* ios-super-turbo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ios-super-turbo.m"; sourceTree = "<group>"; };
+		92CA159922961A3200EB82ED /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		92D63F2B1DE1474E00A43BD2 /* libSDL2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libSDL2.a; path = "../../../../../../Library/Developer/Xcode/DerivedData/SDL-gkuwdtwoeeeydbgqmhrtnjtfczec/Build/Products/Debug-iphoneos/libSDL2.a"; sourceTree = "<group>"; };
 		92D63F2D1DE14B5000A43BD2 /* GameController.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameController.framework; path = System/Library/Frameworks/GameController.framework; sourceTree = SDKROOT; };
 		92D63F2F1DE14B8900A43BD2 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -746,6 +748,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92CA159A22961A3200EB82ED /* Metal.framework in Frameworks */,
 				92D63F321DE1518600A43BD2 /* AVFoundation.framework in Frameworks */,
 				92D63F301DE14B8900A43BD2 /* CoreMotion.framework in Frameworks */,
 				92D63F2E1DE14B5000A43BD2 /* GameController.framework in Frameworks */,
@@ -904,6 +907,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				92CA159922961A3200EB82ED /* Metal.framework */,
 				92D63F311DE1518600A43BD2 /* AVFoundation.framework */,
 				92D63F2F1DE14B8900A43BD2 /* CoreMotion.framework */,
 				92D63F2D1DE14B5000A43BD2 /* GameController.framework */,
